@@ -1,38 +1,130 @@
 .App {
   text-align: center;
+  background: rgb(255,255,255);
+  background-image: url(/images/explosion.png), linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(255,226,125,1) 50%, rgba(255,152,152,1) 100%);
+  background-repeat: no-repeat; 
+  background-position: center;
+  background-size: 70vh, 100vw;
+  height: 100vh;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+/* ----------FONTS---------- */
+
+h1, .h1, h2, .h2, h3, .h3, h4, .h4{
+  font-family: 'Shrikhand', cursive;
+  margin: 0;
+  color: black;
+  text-decoration: none;
+  user-select: none;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+p, h5, .h5 {
+  font-family: 'Courier New', Courier, monospace;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+h5, .h5 {
+  margin-top: 0;
+  font-size: 1em;
+}
+
+.h1 {
+  font-size: 3.5em;
+}
+
+.h2 {
+  font-size: 2em;
+}
+
+.h2, .h3 {
+  transition: all .2s ease-in-out;
+}
+
+.h2:hover, .h3:hover {
+  transform: scale(1.5);
+}
+
+.h2:active, .h3:active {
+  color: rgb(255, 184, 184);
+  transform: scale(1.4);
+}
+
+.active {
+  color: red;
+}
+
+span {
+  font-weight: bold;
+}
+
+/* ----------FONTS---------- */
+
+/* ----------HEADER---------- */
+
+header {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+}
+
+header p {
+  margin-top: 0;
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+}
+
+.hamster-icon {
+  width: 6em;
+  transition: all .3s ease-in-out;
+}
+
+.hamster-icon:hover {
+  transform: rotateZ(30deg);
+}
+
+/* ----------HEADER---------- */
+
+nav{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: white;
+  height: 2em;
+  padding-left: 30vw;
+  padding-right: 30vw;
+  margin-top: 1em;
+}
+
+main {
+  padding-top: 3em;
+  padding-bottom: 3em;
+  padding-left: 20vw;
+  padding-right: 20vw;
+}
+
+input {
+  display: block;
+  width: 90%;
+  margin-bottom: 1em;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+button {
+  font-family: 'Courier New', Courier, monospace;
+}
+
+footer p {
+  padding: 1.5em;
+  font-size: 0.8em;
   color: white;
+  border-top: 1px solid white;
 }
 
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
 }
