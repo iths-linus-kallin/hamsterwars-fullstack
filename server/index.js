@@ -4,16 +4,28 @@ const app = express();
 const { db } = require('./firebase');
 const dotenv = require('dotenv').config();
 const helmet = require('helmet');
+const rateLimit = require("express-rate-limit");
+ 
+// EXPRESS-RATE-LIMITER
+// Enable if you're behind a reverse proxy (Heroku, Bluemix, AWS ELB, Nginx, etc)
+// see https://expressjs.com/en/guide/behind-proxies.html
+// app.set('trust proxy', 1);
+ 
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100 // limit each IP to 100 requests per windowMs
+});
+ 
+app.use(limiter);
 
 // GÖR OM POSTS TILL JSON
 app.use(express.json());
 
 // STÄLL IN PORT
-const port = process.env.PORT || 3000;
+const serverPort = process.env.PORT || 3005;
 
 // SERVE PUBLIC-MAPP
-app.use('/', express.static('./public'))
-app.use('/assets', express.static('./hamsters'))
+app.use(express.static(__dirname + '/../build'))
 
 // // MIDDLEWARE Kolla mot authorization-nyckel i header
 let auth = (req, res, next) => {
@@ -52,6 +64,6 @@ const statsRoute = require('./routes/stats')
 app.use('/api/stats', statsRoute)
 
 // LOCALHOST
-app.listen(3000, () => {
-    console.log('Server up and running on port 3000');
+app.listen(serverPort, () => {
+    console.log(`Server up and running on port ${serverPort}`);
 })

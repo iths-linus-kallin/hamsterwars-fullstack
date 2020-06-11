@@ -34,7 +34,7 @@ function App() {
           </Switch>
         </main>
         <footer>
-          <p>Created by: Linus Kallin  |  
+          <p>Created by: Linus Kallin aka. Humpmonkey  |  
             Tools: Node, React and a whole lot of creativity  |  
             Loved by: Very few  |  
             Sources of income: Breeding and selling real hamsters
