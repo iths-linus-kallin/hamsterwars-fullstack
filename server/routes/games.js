@@ -37,7 +37,6 @@ router.post('/', async (req, res) => {
 
             games.push(game.data())
         })
-        console.log(games);
         
         if(games === undefined || games.length == 0){
             db.collection('games').doc().set({

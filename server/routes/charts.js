@@ -18,7 +18,8 @@ router.get('/top', async (req, res) => {
         });
 
         let sortedHamsters = _.sortBy(hamsters, 'wins')
-        let topFive = sortedHamsters.slice(-5)
+        let topFiveTemp = sortedHamsters.slice(-5)
+        let topFive = topFiveTemp.reverse()
         
         res.status(200).send({topFiveHamsters: topFive})
     }

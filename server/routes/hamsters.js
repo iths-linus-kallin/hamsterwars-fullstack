@@ -35,7 +35,7 @@ router.get('/random', async (req, res) => {
         
             snapshot.forEach(hamster => {
 
-                res.status(200).send({ randomHamster: hamster.data() })            
+                res.status(200).send({ randomHamster: hamster.data()})            
             });
     }
     catch(err){
@@ -93,6 +93,46 @@ router.put('/:id/results', async (req, res) => {
                 res.status(200).send('Hamster wins/defeats/games updated!')
             })
         })
+    }
+    catch(err){
+        console.log(err);
+        
+    }
+        
+})
+
+// POST HAMSTER
+
+router.post('/new', async (req, res) => {
+    
+    try {
+        let hamsters = []
+        let results = await db.collection('hamsters').get()
+        
+        results.forEach(hamster => {
+
+            hamsters.push(hamster.data())
+        })
+        let sortedHamsters = _.sortBy(hamsters, 'id')
+        let highestId = sortedHamsters.slice(-1)
+        let newId = []
+        for(id of highestId){
+            newId.push(id.id) 
+        }
+            
+
+        db.collection('games').doc().set({
+            id: parseInt(newId)+1,
+            name: req.body.name,
+            age: req.body.age,
+            favFood: req.body.favFood,
+            loves: req.body.loves,
+            imgName: req.body.imgName,
+            games: 0,
+            wins: 0,
+            defeats: 0
+        })
+        
     }
     catch(err){
         console.log(err);

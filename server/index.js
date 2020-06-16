@@ -1,6 +1,7 @@
 // IMPORTERA FUNKTIONALITET
 const express = require('express');
 const app = express();
+const cors = require('cors')
 const { db } = require('./firebase');
 const dotenv = require('dotenv').config();
 const helmet = require('helmet');
@@ -27,10 +28,13 @@ const serverPort = process.env.PORT || 3005;
 // SERVE PUBLIC-MAPP
 app.use(express.static(__dirname + '/../build'))
 
+// ENABLE CORS
+app.use(cors())
+
 // // MIDDLEWARE Kolla mot authorization-nyckel i header
 let auth = (req, res, next) => {
     
-    const APIKey = process.env.APIKEY
+    const APIKey = 'AIzaSyB3iRmatF29AaJzTn6TZAEyIvI4ip30GFM'
     
     if(req.method != 'GET'){
         

@@ -1,9 +1,34 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import High5 from './High5'
 import Low5 from './Low5'
 
 const Stats = () => {
+    const [totalGames, setTotalGames] = useState()
+    const [favFood, setFavFood] = useState()
+
+    useEffect(() => {
+
+        async function fetchData() {
+            const data = await fetch('http://localhost:3005/api/stats/total')
+            const json = await data.json()
+
+            setTotalGames(json.totalGames)
+        }
+        fetchData()
+    }, [])
+
+    useEffect(() => {
+
+        async function fetchData() {
+            const data = await fetch('http://localhost:3005/api/stats/favfood')
+            const json = await data.json()
+
+            setFavFood(json.mostFavFood)
+        }
+        fetchData()
+    }, [])
+
     return(
         <StyledDiv>
             <StatsLeft>
@@ -11,9 +36,9 @@ const Stats = () => {
             </StatsLeft>
             <StatsMiddle>
                 <H5Middle>Total games played:</H5Middle>
-                <PMiddle>51</PMiddle>
+                <PMiddle>{totalGames ? totalGames : ''}</PMiddle>
                 <H5Middle>Most favourite food:</H5Middle>
-                <PMiddle>Salad</PMiddle>
+                <PMiddle>{favFood ? favFood : ''}</PMiddle>
                 <H5Middle>Blessed players:</H5Middle>
                 <PMiddle>7</PMiddle>
             </StatsMiddle>

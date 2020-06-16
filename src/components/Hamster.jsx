@@ -1,41 +1,74 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import styled from 'styled-components'
+import dotenv from 'dotenv'
 
-const Hamster = () => {
+dotenv.config()
+
+const Hamster = (props) => {
     
-    const [hamster, setHamster] = useState('No Hamster')
+    // const backgroundImage = `url('/images/hamsters/' + ${props.hamster.imgName})`    
 
-    // useEffect(() => {
-    //     let response = async () => {
-    //         await fetch('http://localhost:3005/api/hamsters/random')
-    //         .then(response => response.json())
-    //         .then(hamster => console.log(hamster))
-    //     }
-    //     setHamster(response)
-    // }, [])
+    function handleClick(props) {
+        
+        console.log(props);
+        
+        let object = {
+            "winner": {"id": props.id},
+            "contestants": [
+                {"id": props.id},
+                {"id": 7}
+            ]
+        }
 
+        async function postData(url = 'http://localhost:3005/api/games', data=object) {
+            
+            await fetch(url, {
+                'method': 'POST',
+                'headers': {
+                    'Content-Type': 'application/json'
+                },
+                'authorization': 'AIzaSyB3iRmatF29AaJzTn6TZAEyIvI4ip30GFM',
+                'body': JSON.stringify(data)
+            })
+            // .then(res => res.json())
+            .then(res => res.text())
+            .then(text => console.log(text))
+              .catch((error) => {
+                console.error('Error:', error);
+              })
+            
+            
+            
+        }
+        postData()
+    }
 
     return(
         <div>
-            <HamsterDiv>
-                <HamsterName>{hamster}</HamsterName>
+            {props.hamster 
+            ? <> 
+            <HamsterDiv onClick={() => handleClick(props.hamster)}>
+            <HamsterName>{props.hamster.name}</HamsterName>
             </HamsterDiv>
-            <HamsterStats>
-                <HamsterStatsLeft>
-                    <p>Wins:</p>
-                    <p>Losses:</p>
-                    <p>Matches:</p>
-                    <p>Fav Food:</p>
-                    <p>Loves:</p>
-                </HamsterStatsLeft>
-                <HamsterStatsRight>
-                    <p>{hamster}</p>
-                    <p>8</p>
-                    <p>32</p>
-                    <p>Salad</p>
-                    <p>Humping</p>
-                </HamsterStatsRight>
-            </HamsterStats>
+                <HamsterStats>
+                    <HamsterStatsLeft>
+                        <p>Wins:</p>
+                        <p>Losses:</p>
+                        <p>Matches:</p>
+                        <p>Fav Food:</p>
+                        <p>Loves:</p>
+                    </HamsterStatsLeft>
+                    <HamsterStatsRight>
+                        <p>{props.hamster.wins}</p>
+                        <p>{props.hamster.losses}</p>
+                        <p>{props.hamster.matches ? props.hamster.matches : '0'}</p>
+                        <p>{props.hamster.favFood}</p>
+                        <p>{props.hamster.loves}</p>
+                    </HamsterStatsRight>
+                </HamsterStats> 
+            </>
+            : ''} 
+
         </div>
     )
 
@@ -44,7 +77,6 @@ const Hamster = () => {
 const HamsterDiv = styled.div`
     display: flex;
     align-items: flex-end;
-    background-image: url('/images/hamster-5.jpg');
     background-size: 100%;
     /* object-fit: cover; */
     height: 250px;

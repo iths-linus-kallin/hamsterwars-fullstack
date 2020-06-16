@@ -45,7 +45,8 @@ router.get('/favfood', async (req, res) => {
         });
         
         let tagArray = _.pluck(hamsters,'favFood')
-        let mostFavFood = _.chain(tagArray).countBy().pairs().max(_.last).head().value();
+        let mostFavFoodTemp = _.chain(tagArray).countBy().pairs().max(_.last).head().value();
+        let mostFavFood = mostFavFoodTemp[0].toUpperCase() + mostFavFoodTemp.slice(1); 
         
         let statsObj = {
             mostFavFood: mostFavFood
