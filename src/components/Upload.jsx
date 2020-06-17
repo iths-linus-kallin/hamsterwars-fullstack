@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import drop
+import dropzone from 'dropzone'
 
 const Upload = () => {
 
@@ -38,14 +38,13 @@ const Upload = () => {
     }
 
     return(
-        <StyledForm>
+        <StyledForm action="/file-upload" method="post" encType="multipart/form-data" className="dropzone"> 
             <h5>UPLOAD YOUR HAMSTER:</h5>
             <StyledInput type="text" placeholder="Name" onChange={e => setName(e.target.value)}/>
             <StyledInput type="number" placeholder="Age" onChange={e => setAge(e.target.value)}/>
             <StyledInput type="text" placeholder="Favourite food" onChange={e => setFavFood(e.target.value)}/>
             <StyledInput type="text" placeholder="What does it love most?" onChange={e => setLoves(e.target.value)}/>
-            <StyledInput type="file" placeholder="Image"/>
-            <button onClick={postHamster}>UPLOAD</button>
+            <button type="submit" onClick={postHamster}>UPLOAD</button>
         </StyledForm>
     )
 }
