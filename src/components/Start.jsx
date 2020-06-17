@@ -42,6 +42,7 @@ const StyledDiv = styled.div`
     padding: 2em;
     border-radius: 1em;
     text-align: left;
+    width: 750px;
 `
 
 const Dashes = styled.p`

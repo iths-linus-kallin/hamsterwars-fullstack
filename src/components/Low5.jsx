@@ -85,6 +85,11 @@ const StyledImg = styled.img`
 const Wrapper = styled.div`
     display: flex;
     justify-content: flex-end;
+    transition: all .1s ease-in-out;
+
+    &:hover {
+        transform: scale(1.2);
+    }
 `
 
 export default Low5

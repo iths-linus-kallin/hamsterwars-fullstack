@@ -39,8 +39,6 @@ const Stats = () => {
                 <PMiddle>{totalGames ? totalGames : ''}</PMiddle>
                 <H5Middle>Most favourite food:</H5Middle>
                 <PMiddle>{favFood ? favFood : ''}</PMiddle>
-                <H5Middle>Blessed players:</H5Middle>
-                <PMiddle>7</PMiddle>
             </StatsMiddle>
             <StatsRight>
                 <Low5 />
@@ -54,6 +52,7 @@ const StyledDiv = styled.div`
     display: grid;
     grid-template-columns: 30% auto 30%;
     grid-template-areas: "left middle right";
+    grid-column-gap: 1.5em;
     background-color: white;
     padding: 2em;
     border-radius: 1em;
@@ -64,6 +63,9 @@ const StatsLeft = styled.section`
 `
 const StatsMiddle = styled.section`
     grid-area: middle;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 `
 const StatsRight = styled.section`
     grid-area: right;

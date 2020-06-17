@@ -73,6 +73,11 @@ const StyledImg = styled.img`
 const Wrapper = styled.div`
     display: flex;
     justify-content: flex-start;
+    transition: all .1s ease-in-out;
+
+    &:hover {
+        transform: scale(1.2);
+    }
 `
 
 export default High5

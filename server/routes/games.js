@@ -25,6 +25,30 @@ router.get('/', async (req, res) => {
     }
 })
 
+// GET LATEST GAME
+
+router.get('/latest', async (req, res) => {
+
+    try{
+    let games = []
+
+    let snapshot = await db.collection('games').get()
+        
+    snapshot.forEach(game => {
+        games.push(game.data());
+        });
+
+    let sortedGames = _.sortBy(games, 'timeStamp')
+    let latestGame = sortedGames.slice(-1)
+
+    res.status(200).send({latestGame: latestGame})
+    }
+    catch(err){
+        console.error(err);
+        
+    }
+})
+
 // POST GAME
 
 router.post('/', async (req, res) => {

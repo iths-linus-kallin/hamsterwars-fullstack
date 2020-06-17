@@ -3,10 +3,12 @@ const express = require('express');
 const app = express();
 const cors = require('cors')
 const { db } = require('./firebase');
-const dotenv = require('dotenv').config();
+require('dotenv').config()
 const helmet = require('helmet');
 const rateLimit = require("express-rate-limit");
- 
+
+console.log(process.env.APIKEY);
+
 // EXPRESS-RATE-LIMITER
 // Enable if you're behind a reverse proxy (Heroku, Bluemix, AWS ELB, Nginx, etc)
 // see https://expressjs.com/en/guide/behind-proxies.html
@@ -34,7 +36,7 @@ app.use(cors())
 // // MIDDLEWARE Kolla mot authorization-nyckel i header
 let auth = (req, res, next) => {
     
-    const APIKey = 'AIzaSyB3iRmatF29AaJzTn6TZAEyIvI4ip30GFM'
+    const APIKey = process.env.APIKEY
     
     if(req.method != 'GET'){
         

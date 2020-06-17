@@ -3,51 +3,107 @@ import styled from 'styled-components'
 import dotenv from 'dotenv'
 
 dotenv.config()
+// console.log(process.env.APIKEY);
 
 const Hamster = (props) => {
     
-    // const backgroundImage = `url('/images/hamsters/' + ${props.hamster.imgName})`    
-
     function handleClick(props) {
-        
-        console.log(props);
-        
-        let object = {
-            "winner": {"id": props.id},
+                
+        let game = {
+            "winner": {"id": props.hamster.id},
             "contestants": [
-                {"id": props.id},
-                {"id": 7}
+                {"id": props.hamster.id},
+                {"id": props.otherHamster.id}
             ]
         }
 
-        async function postData(url = 'http://localhost:3005/api/games', data=object) {
+        async function postGame(url = 'http://localhost:3005/api/games', data=game) {
             
             await fetch(url, {
                 'method': 'POST',
                 'headers': {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'authorization': 'AIzaSyB3iRmatF29AaJzTn6TZAEyIvI4ip30GFM',
                 },
-                'authorization': 'AIzaSyB3iRmatF29AaJzTn6TZAEyIvI4ip30GFM',
+                'body': JSON.stringify(data)
+            })
+            .then(res => res.json())
+            // .then(res => res.text())
+            // .then(text => console.log(text))
+            .catch((error) => {
+            console.error('Error:', error);
+            })            
+        }
+
+        let hamsterWinId = props.hamster.id
+
+        let hamsterLoseId = props.otherHamster.id
+
+        let hamsterWin = {
+            "wins": 1,
+            "defeats": 0
+        }
+
+        let hamsterLose = {
+            "wins": 0,
+            "defeats": 1
+        }
+
+        async function putHamsters(url = `http://localhost:3005/api/hamsters/${hamsterWinId}/results`, data = hamsterWin, url2 = `http://localhost:3005/api/hamsters/${hamsterLoseId}/results`, data2 = hamsterLose) {
+            
+            await fetch(url, {
+                'method': 'PUT',
+                'headers': {
+                    'Content-Type': 'application/json',
+                    'authorization': 'AIzaSyB3iRmatF29AaJzTn6TZAEyIvI4ip30GFM',
+                },
                 'body': JSON.stringify(data)
             })
             // .then(res => res.json())
             .then(res => res.text())
             .then(text => console.log(text))
-              .catch((error) => {
-                console.error('Error:', error);
-              })
+            .catch((error) => {
+            console.error('Error:', error);
+            })    
             
-            
-            
+            await fetch(url2, {
+                'method': 'PUT',
+                'headers': {
+                    'Content-Type': 'application/json',
+                    'authorization': 'AIzaSyB3iRmatF29AaJzTn6TZAEyIvI4ip30GFM',
+                },
+                'body': JSON.stringify(data2)
+            })
+            // .then(res => res.json())
+            .then(res => res.text())
+            .then(text => console.log(text))
+            .catch((error) => {
+            console.error('Error:', error);
+            })     
         }
-        postData()
-    }
+
+        // function redirect() {
+        //     console.log('hej');
+            
+        //     return (
+        //         <Redirect to="/matchup" />
+        //     )
+        // }
+
+        postGame()
+        putHamsters()
+        // redirect()
+    }    
+    
+    // const favFoodString = String(props.hamster.favFood)
+    // const favFoodUpperCase = favFoodString[0].toUpperCase() + favFoodString.slice(1)
+    {/* <p>{favFoodUpperCase}</p> */}
 
     return(
         <div>
             {props.hamster 
             ? <> 
-            <HamsterDiv onClick={() => handleClick(props.hamster)}>
+            <HamsterDiv onClick={() => handleClick(props)} style={{backgroundImage: `url(${'/images/hamsters/' + props.hamster.imgName})`}}>
             <HamsterName>{props.hamster.name}</HamsterName>
             </HamsterDiv>
                 <HamsterStats>
@@ -62,7 +118,7 @@ const Hamster = (props) => {
                         <p>{props.hamster.wins}</p>
                         <p>{props.hamster.losses}</p>
                         <p>{props.hamster.matches ? props.hamster.matches : '0'}</p>
-                        <p>{props.hamster.favFood}</p>
+                        <p>{props.hamster.favFood[0].toUpperCase() + props.hamster.favFood.slice(1)}</p>
                         <p>{props.hamster.loves}</p>
                     </HamsterStatsRight>
                 </HamsterStats> 
@@ -77,8 +133,9 @@ const Hamster = (props) => {
 const HamsterDiv = styled.div`
     display: flex;
     align-items: flex-end;
-    background-size: 100%;
-    /* object-fit: cover; */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
     height: 250px;
     border-radius: 1em;
     border: 3px solid white;

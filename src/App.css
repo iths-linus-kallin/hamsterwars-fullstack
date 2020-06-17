@@ -99,10 +99,13 @@ nav{
 }
 
 main {
+  display: flex;
+  justify-content: center;
   padding-top: 3em;
   padding-bottom: 3em;
-  padding-left: 25vw;
-  padding-right: 25vw;
+  /* width: 300px; */
+  /* padding-left: 30vw;
+  padding-right: 30vw; */
 }
 
 input {
