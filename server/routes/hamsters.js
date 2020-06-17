@@ -35,7 +35,8 @@ router.get('/random', async (req, res) => {
         let snapshot = await db.collection('hamsters').where("id", "==", randId).get()
         
             snapshot.forEach(hamster => {
-
+                console.log(hamster);
+                
                 res.status(200).send({ randomHamster: hamster.data()})            
             });
     }
@@ -157,17 +158,15 @@ router.post('/new', async (req, res) => {
         })
         let sortedHamsters = _.sortBy(hamsters, 'id')
         
-        let highestId = sortedHamsters.slice(-1)
-
-        console.log('HighestID:', highestId);
+        let highestId = sortedHamsters[sortedHamsters.length -1]
             
         let obj = {
-            id: parseInt(highestId) +1,
+            id: parseInt(highestId.id) +1,
             name: req.body.name,
             age: parseInt(req.body.age),
             favFood: req.body.favFood,
             loves: req.body.loves,
-            imgName: `hamster-${parseInt(highestId) +1}.jpg`,
+            imgName: `hamster-${parseInt(highestId.id) +1}.jpg`,
             games: 0,
             wins: 0,
             defeats: 0

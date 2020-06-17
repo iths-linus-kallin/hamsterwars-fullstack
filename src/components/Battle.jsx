@@ -11,25 +11,27 @@ const Battle = () => {
 
     useEffect(() => {
 
+        try{
         async function fetchData() {
             const data = await fetch('/api/hamsters/random')
             const json = await data.json()
             
             setHamster1({ id: json.randomHamster.id, name: json.randomHamster.name, age: json.randomHamster.age, matches: json.randomHamster.matches, wins: json.randomHamster.wins, losses: json.randomHamster.defeats, favFood: json.randomHamster.favFood, loves: json.randomHamster.loves, imgName: json.randomHamster.imgName})
         }
-        fetchData()
 
-    }, [])
-
-    useEffect(() => {
-
-        async function fetchData() {
+        async function fetchData2() {
             const data = await fetch('/api/hamsters/random')
             const json = await data.json()
             
             setHamster2({ id: json.randomHamster.id, name: json.randomHamster.name, age: json.randomHamster.age, matches: json.randomHamster.matches, wins: json.randomHamster.wins, losses: json.randomHamster.defeats, favFood: json.randomHamster.favFood, loves: json.randomHamster.loves, imgName: json.randomHamster.imgName})
         }
         fetchData()
+        fetchData2()
+        
+        }
+        catch(err){
+            console.error(err);
+        }
 
     }, [])
 
