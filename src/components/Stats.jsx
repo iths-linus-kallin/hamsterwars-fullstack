@@ -10,7 +10,7 @@ const Stats = () => {
     useEffect(() => {
 
         async function fetchData() {
-            const data = await fetch('http://localhost:3005/api/stats/total')
+            const data = await fetch('/api/stats/total')
             const json = await data.json()
 
             setTotalGames(json.totalGames)
@@ -21,7 +21,7 @@ const Stats = () => {
     useEffect(() => {
 
         async function fetchData() {
-            const data = await fetch('http://localhost:3005/api/stats/favfood')
+            const data = await fetch('/api/stats/favfood')
             const json = await data.json()
 
             setFavFood(json.mostFavFood)

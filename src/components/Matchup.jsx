@@ -5,8 +5,6 @@ import Hamster from './Hamster'
 
 const Matchup = () => {
     
-    const [hamsterId1, setHamsterId1] = useState('')
-    const [hamsterId2, setHamsterId2] = useState('')
     const [hamster1, setHamster1] = useState()
     const [hamster2, setHamster2] = useState()
 
@@ -15,16 +13,13 @@ const Matchup = () => {
     useEffect(() => {
 
         async function fetchData() {
-            const data = await fetch('http://localhost:3005/api/games/latest')
+            const data = await fetch('/api/games/latest')
             const json = await data.json()            
 
             console.log(json);
             
-            setHamsterId1({ id: json.latestGame[0].winner.id})
-            setHamsterId2({ id: json.latestGame[0].contestants[1].id})
-            
-            const data2 = await fetch(`http://localhost:3005/api/hamsters/8/9`)
-            const json2 = await data.json() 
+            const data2 = await fetch(`/api/hamsters/${id1}/${id2}`)
+            const json2 = await data2.json() 
             console.log(json2);
             
             setHamster1({ id: json2.twoHamsters[0].id, name: json.twoHamsters[0].name, age: json.twoHamsters[0].age, matches: json.twoHamsters[0].matches, wins: json.twoHamsters[0].wins, losses: json.twoHamsters[0].defeats, favFood: json.twoHamsters[0].favFood, loves: json.twoHamsters[0].loves, imgName: json.twoHamsters[0].imgName})
@@ -33,7 +28,7 @@ const Matchup = () => {
         }
         fetchData()
 
-    }, [])
+    }, [id1, id2])
 
     useEffect(() => {
 

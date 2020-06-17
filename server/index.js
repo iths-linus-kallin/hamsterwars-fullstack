@@ -7,7 +7,12 @@ require('dotenv').config()
 const helmet = require('helmet');
 const rateLimit = require("express-rate-limit");
 
-console.log(process.env.APIKEY);
+const path = require('path')
+// FIXA DÖDA SIDOR
+app.get('*', (req,res) => {
+    let filePath = path.resolve('./build/index.html')
+    res.sendFile(filePath)
+})
 
 // EXPRESS-RATE-LIMITER
 // Enable if you're behind a reverse proxy (Heroku, Bluemix, AWS ELB, Nginx, etc)
@@ -33,10 +38,11 @@ app.use(express.static(__dirname + '/../build'))
 // ENABLE CORS
 app.use(cors())
 
+
 // // MIDDLEWARE Kolla mot authorization-nyckel i header
 let auth = (req, res, next) => {
     
-    const APIKey = process.env.APIKEY
+    const APIKey = process.env.REACT_APP_APIKEY
     
     if(req.method != 'GET'){
         

@@ -1,9 +1,5 @@
 import React from 'react'
 import styled from 'styled-components'
-import dotenv from 'dotenv'
-
-dotenv.config()
-// console.log(process.env.APIKEY);
 
 const Hamster = (props) => {
     
@@ -17,13 +13,13 @@ const Hamster = (props) => {
             ]
         }
 
-        async function postGame(url = 'http://localhost:3005/api/games', data=game) {
+        async function postGame(url = '/api/games', data=game) {
             
             await fetch(url, {
                 'method': 'POST',
                 'headers': {
                     'Content-Type': 'application/json',
-                    'authorization': 'AIzaSyB3iRmatF29AaJzTn6TZAEyIvI4ip30GFM',
+                    'authorization': process.env.REACT_APP_APIKEY,
                 },
                 'body': JSON.stringify(data)
             })
@@ -49,13 +45,13 @@ const Hamster = (props) => {
             "defeats": 1
         }
 
-        async function putHamsters(url = `http://localhost:3005/api/hamsters/${hamsterWinId}/results`, data = hamsterWin, url2 = `http://localhost:3005/api/hamsters/${hamsterLoseId}/results`, data2 = hamsterLose) {
+        async function putHamsters(url = `/api/hamsters/${hamsterWinId}/results`, data = hamsterWin, url2 = `http://localhost:3005/api/hamsters/${hamsterLoseId}/results`, data2 = hamsterLose) {
             
             await fetch(url, {
                 'method': 'PUT',
                 'headers': {
                     'Content-Type': 'application/json',
-                    'authorization': 'AIzaSyB3iRmatF29AaJzTn6TZAEyIvI4ip30GFM',
+                    'authorization': process.env.REACT_APP_APIKEY,
                 },
                 'body': JSON.stringify(data)
             })
@@ -70,7 +66,7 @@ const Hamster = (props) => {
                 'method': 'PUT',
                 'headers': {
                     'Content-Type': 'application/json',
-                    'authorization': 'AIzaSyB3iRmatF29AaJzTn6TZAEyIvI4ip30GFM',
+                    'authorization': process.env.REACT_APP_APIKEY,
                 },
                 'body': JSON.stringify(data2)
             })
@@ -82,22 +78,9 @@ const Hamster = (props) => {
             })     
         }
 
-        // function redirect() {
-        //     console.log('hej');
-            
-        //     return (
-        //         <Redirect to="/matchup" />
-        //     )
-        // }
-
         postGame()
         putHamsters()
-        // redirect()
-    }    
-    
-    // const favFoodString = String(props.hamster.favFood)
-    // const favFoodUpperCase = favFoodString[0].toUpperCase() + favFoodString.slice(1)
-    {/* <p>{favFoodUpperCase}</p> */}
+    }     
 
     return(
         <div>

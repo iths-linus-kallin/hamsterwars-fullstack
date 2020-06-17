@@ -9,7 +9,7 @@ const High5 = () => {
     useEffect(() => {
 
         async function fetchData() {
-            const data = await fetch('http://localhost:3005/api/charts/top')
+            const data = await fetch('/api/charts/top')
             const json = await data.json()
             let object = {}
             

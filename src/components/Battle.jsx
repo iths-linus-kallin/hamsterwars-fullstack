@@ -12,7 +12,7 @@ const Battle = () => {
     useEffect(() => {
 
         async function fetchData() {
-            const data = await fetch('http://localhost:3005/api/hamsters/random')
+            const data = await fetch('/api/hamsters/random')
             const json = await data.json()
             
             setHamster1({ id: json.randomHamster.id, name: json.randomHamster.name, age: json.randomHamster.age, matches: json.randomHamster.matches, wins: json.randomHamster.wins, losses: json.randomHamster.defeats, favFood: json.randomHamster.favFood, loves: json.randomHamster.loves, imgName: json.randomHamster.imgName})
@@ -24,7 +24,7 @@ const Battle = () => {
     useEffect(() => {
 
         async function fetchData() {
-            const data = await fetch('http://localhost:3005/api/hamsters/random')
+            const data = await fetch('/api/hamsters/random')
             const json = await data.json()
             
             setHamster2({ id: json.randomHamster.id, name: json.randomHamster.name, age: json.randomHamster.age, matches: json.randomHamster.matches, wins: json.randomHamster.wins, losses: json.randomHamster.defeats, favFood: json.randomHamster.favFood, loves: json.randomHamster.loves, imgName: json.randomHamster.imgName})
@@ -36,7 +36,7 @@ const Battle = () => {
     // useEffect(() => {
 
     //     async function fetchData() {
-    //         const data = await fetch(`http://localhost:3005/api/hamsters/${specHamster1.id}/${specHamster2.id}`)
+    //         const data = await fetch(`/api/hamsters/${specHamster1.id}/${specHamster2.id}`)
     //         const json = await data.json()
             
     //         setSpecHamster1({ id: json.twoHamsters[0].id, name: json.twoHamsters[0].name, age: json.twoHamsters[0].age, matches: json.twoHamsters[0].matches, wins: json.twoHamsters[0].wins, losses: json.twoHamsters[0].defeats, favFood: json.twoHamsters[0].favFood, loves: json.twoHamsters[0].loves, imgName: json.twoHamsters[0].imgName})

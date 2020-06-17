@@ -8,37 +8,36 @@ const Upload = () => {
     const [favFood, setFavFood] = useState()
     const [loves, setLoves] = useState()
 
-    let hamster = {
-        "id": 0,
-        "name": name,
-        "age": age,
-        "favFood": favFood,
-        "loves": loves,
-        "games": 0,
-        "wins": 0,
-        "defeats": 0
-    }
     
-    async function postHamster(url = 'http://localhost:3005/api/hamsters/new', data = hamster) {
-        
-        await fetch(url, {
-            'method': 'POST',
-            'headers': {
-                'Content-Type': 'application/json',
-                'authorization': 'AIzaSyB3iRmatF29AaJzTn6TZAEyIvI4ip30GFM',
-            },
-            'body': JSON.stringify(data)
+    async function postHamster() {
+
+        const newHamster = JSON.stringify({
+            "name": name,
+            "age": age,
+            "favFood": favFood,
+            "loves": loves
         })
-        .then(res => res.json())
-        // .then(res => res.text())
-        // .then(text => console.log(text))
-        .catch((error) => {
-        console.error('Error:', error);
-        })            
+        
+        const myHeaders = new Headers();
+        myHeaders.append("authorization", process.env.REACT_APP_APIKEY);
+        myHeaders.append("Content-Type", "application/json");
+                
+        const requestOptions = {
+          method: 'POST',
+          headers: myHeaders,
+          body: newHamster,
+          redirect: 'follow'
+        };
+        
+        fetch("/api/hamsters/new", requestOptions)
+          .then(response => response.text())
+          .then(result => console.log(result))
+          .catch(error => console.log('error', error));
+    
     }
 
     return(
-        <StyledForm action="" className="dropzone">
+        <StyledForm>
             <h5>UPLOAD YOUR HAMSTER:</h5>
             <StyledInput type="text" placeholder="Name" onChange={e => setName(e.target.value)}/>
             <StyledInput type="number" placeholder="Age" onChange={e => setAge(e.target.value)}/>

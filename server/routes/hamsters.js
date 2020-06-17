@@ -156,26 +156,24 @@ router.post('/new', async (req, res) => {
             hamsters.push(hamster.data())
         })
         let sortedHamsters = _.sortBy(hamsters, 'id')
-        console.log(sortedHamsters);
         
         let highestId = sortedHamsters.slice(-1)
-        let newId = []
-        for(id of highestId){
-            newId.push(id.id) 
-        }
-            
 
-        db.collection('hamsters').doc().set({
-            id: parseInt(newId) +1,
+        console.log('HighestID:', highestId);
+            
+        let obj = {
+            id: parseInt(highestId) +1,
             name: req.body.name,
-            age: req.body.age,
+            age: parseInt(req.body.age),
             favFood: req.body.favFood,
             loves: req.body.loves,
-            // imgName: 'hamster-1.jpg',
+            imgName: `hamster-${parseInt(highestId) +1}.jpg`,
             games: 0,
             wins: 0,
             defeats: 0
-        })
+        }
+        console.log("hamster to save", obj)
+        db.collection('hamsters').doc().set(obj)
 
         res.status(200).send('DB updated with new hamster!')
         

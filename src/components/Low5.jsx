@@ -9,7 +9,7 @@ const Low5 = () => {
     useEffect(() => {
 
         async function fetchData() {
-            const data = await fetch('http://localhost:3005/api/charts/bottom')
+            const data = await fetch('/api/charts/bottom')
             const json = await data.json()
             
             let object = {}
@@ -33,7 +33,7 @@ const Low5 = () => {
     useEffect(() => {
 
         async function fetchData() {
-            const data = await fetch('http://localhost:3005/api/hamsters')
+            const data = await fetch('/api/hamsters')
             const json = await data.json()
 
             setNumber(json.allHamsters.length)
