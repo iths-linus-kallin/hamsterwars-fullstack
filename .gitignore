@@ -19,9 +19,9 @@
 .env.production.local
 .env
 
-server/config.js
-server/serviceAccount.json
-server/data.json
+/server/config.js
+/server/serviceAccount.json
+/server/data.json
 
 config.js
 serviceAccount.json
