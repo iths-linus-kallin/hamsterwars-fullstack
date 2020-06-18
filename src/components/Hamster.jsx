@@ -23,7 +23,7 @@ const Hamster = (props) => {
                 },
                 'body': JSON.stringify(data)
             })
-            // .then(res => res.json())
+            .then(res => res.json())
             .then(res => res.text())
             .then(text => console.log(text))
             .catch((error) => {
@@ -55,7 +55,7 @@ const Hamster = (props) => {
                 },
                 'body': JSON.stringify(data)
             })
-            // .then(res => res.json())
+            .then(res => res.json())
             .then(res => res.text())
             .then(text => console.log(text))
             .catch((error) => {
@@ -70,7 +70,7 @@ const Hamster = (props) => {
                 },
                 'body': JSON.stringify(data2)
             })
-            // .then(res => res.json())
+            .then(res => res.json())
             .then(res => res.text())
             .then(text => console.log(text))
             .catch((error) => {
