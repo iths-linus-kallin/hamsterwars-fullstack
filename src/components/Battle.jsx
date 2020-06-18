@@ -6,10 +6,8 @@ const Battle = () => {
 
     const [hamster1, setHamster1] = useState('')    
     const [hamster2, setHamster2] = useState('')
-    // const [specHamster1, setSpecHamster1] = useState('')            
-    // const [specHamster2, setSpecHamster2] = useState('')            
 
-    useEffect(() => {
+    useEffect(() => {  
 
         try{
         async function fetchData() {
@@ -17,6 +15,7 @@ const Battle = () => {
             const json = await data.json()
             
             setHamster1({ id: json.randomHamster.id, name: json.randomHamster.name, age: json.randomHamster.age, matches: json.randomHamster.matches, wins: json.randomHamster.wins, losses: json.randomHamster.defeats, favFood: json.randomHamster.favFood, loves: json.randomHamster.loves, imgName: json.randomHamster.imgName})
+        
         }
 
         async function fetchData2() {
@@ -24,6 +23,7 @@ const Battle = () => {
             const json = await data.json()
             
             setHamster2({ id: json.randomHamster.id, name: json.randomHamster.name, age: json.randomHamster.age, matches: json.randomHamster.matches, wins: json.randomHamster.wins, losses: json.randomHamster.defeats, favFood: json.randomHamster.favFood, loves: json.randomHamster.loves, imgName: json.randomHamster.imgName})
+        
         }
         fetchData()
         fetchData2()
@@ -35,18 +35,17 @@ const Battle = () => {
 
     }, [])
 
-    // useEffect(() => {
+    // if(hamster1.id === hamster2.id){
+    //     fetchNewHamster()
+    // }
 
-    //     async function fetchData() {
-    //         const data = await fetch(`/api/hamsters/${specHamster1.id}/${specHamster2.id}`)
-    //         const json = await data.json()
-            
-    //         setSpecHamster1({ id: json.twoHamsters[0].id, name: json.twoHamsters[0].name, age: json.twoHamsters[0].age, matches: json.twoHamsters[0].matches, wins: json.twoHamsters[0].wins, losses: json.twoHamsters[0].defeats, favFood: json.twoHamsters[0].favFood, loves: json.twoHamsters[0].loves, imgName: json.twoHamsters[0].imgName})
-    //         setSpecHamster2({ id: json.twoHamsters[1].id, name: json.twoHamsters[1].name, age: json.twoHamsters[1].age, matches: json.twoHamsters[1].matches, wins: json.twoHamsters[1].wins, losses: json.twoHamsters[1].defeats, favFood: json.twoHamsters[1].favFood, loves: json.twoHamsters[1].loves, imgName: json.twoHamsters[1].imgName})
-    //     }
-    //     fetchData()
+    // async function fetchNewHamster(){
 
-    // }, [specHamster1, specHamster2])
+    //     const data = await fetch('/api/hamsters/random')
+    //     const json = await data.json()
+        
+    //     setHamster2({ id: json.randomHamster.id, name: json.randomHamster.name, age: json.randomHamster.age, matches: json.randomHamster.matches, wins: json.randomHamster.wins, losses: json.randomHamster.defeats, favFood: json.randomHamster.favFood, loves: json.randomHamster.loves, imgName: json.randomHamster.imgName})
+    // }
 
     return(
         <StyledDiv>

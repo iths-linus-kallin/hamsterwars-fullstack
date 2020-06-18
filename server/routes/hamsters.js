@@ -1,5 +1,7 @@
 const { Router } = require('express')
 const { db } = require('./../firebase');
+const multer = require('multer')
+const upload = multer({dest: __dirname + '/../build/images/hamsters'});
 const _ = require('underscore');
 
 const router = new Router();
@@ -35,7 +37,6 @@ router.get('/random', async (req, res) => {
         let snapshot = await db.collection('hamsters').where("id", "==", randId).get()
         
             snapshot.forEach(hamster => {
-                console.log(hamster);
                 
                 res.status(200).send({ randomHamster: hamster.data()})            
             });
@@ -73,14 +74,16 @@ router.get('/:id', async (req, res) => {
 
 // GET TWO
 
-router.get('/:id/:id2', async (req, res) => {
+router.get('/:id1/:id2', async (req, res) => {
 
     try{
-        let id = parseInt(req.params.id)
+        console.log('Req.params:', req.params);
+        
+        let id1 = parseInt(req.params.id1)
         let id2 = parseInt(req.params.id2)
         let hamsters = []
         
-        let snapshot = await db.collection('hamsters').where("id", "==", id).get()
+        let snapshot = await db.collection('hamsters').where("id", "==", id1).get()
         
         if (snapshot.empty) {
             console.log('No matching documents.');
@@ -146,6 +149,8 @@ router.put('/:id/results', async (req, res) => {
 
 // POST HAMSTER
 
+let obj = {}
+
 router.post('/new', async (req, res) => {
     
     try {
@@ -160,7 +165,7 @@ router.post('/new', async (req, res) => {
         
         let highestId = sortedHamsters[sortedHamsters.length -1]
             
-        let obj = {
+        obj = {
             id: parseInt(highestId.id) +1,
             name: req.body.name,
             age: parseInt(req.body.age),
@@ -171,10 +176,11 @@ router.post('/new', async (req, res) => {
             wins: 0,
             defeats: 0
         }
-        console.log("hamster to save", obj)
+        // console.log("hamster to save", obj)
         db.collection('hamsters').doc().set(obj)
-
-        res.status(200).send('DB updated with new hamster!')
+        .then(() => {
+            res.status(200).send('New hamster added!')
+        })
         
     }
     catch(err){
@@ -183,5 +189,24 @@ router.post('/new', async (req, res) => {
     }
         
 })
+
+// POST HAMSTER PICTURE
+
+// router.post('/new', upload.single('image'), async (req, res) => {
+    
+//     try {
+//         console.log(req.file);
+        
+//         if(req.file) {
+//             res.json(req.file);
+//         }
+//         else throw 'error';
+//     }
+//     catch(err){
+//         console.log(err);
+        
+//     }
+        
+// })
 
 module.exports = router

@@ -15,6 +15,7 @@
     "firestore-export-import": "^0.5.0",
     "helmet": "^3.22.0",
     "lodash": "^4.17.15",
+    "multer": "^1.4.2",
     "n_": "^2.0.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",

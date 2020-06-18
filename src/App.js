@@ -5,9 +5,10 @@ import Start from './components/Start'
 import Stats from './components/Stats'
 import Battle from './components/Battle'
 import Upload from './components/Upload'
-import Matchup from './components/Matchup'
+// import Matchup from './components/Matchup'
 
 function App() {
+
   return (
     <Router>
       <div className="App">
@@ -31,7 +32,7 @@ function App() {
             <Route exact path="/"> <Start /> </Route>
             <Route path="/stats"> <Stats /> </Route>
             <Route path="/battle"> <Battle /> </Route>
-            <Route path="/matchup/:id/:id2"> <Matchup /> </Route>
+            {/* <Route path="/matchup"> <Matchup /> </Route> */}
             <Route path="/upload"> <Upload /> </Route>
           </Switch>
         </main>

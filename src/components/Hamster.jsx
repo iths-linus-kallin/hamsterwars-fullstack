@@ -23,9 +23,9 @@ const Hamster = (props) => {
                 },
                 'body': JSON.stringify(data)
             })
-            .then(res => res.json())
-            // .then(res => res.text())
-            // .then(text => console.log(text))
+            // .then(res => res.json())
+            .then(res => res.text())
+            .then(text => console.log(text))
             .catch((error) => {
             console.error('Error:', error);
             })            

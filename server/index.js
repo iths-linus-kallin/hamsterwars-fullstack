@@ -67,8 +67,6 @@ const gamesRoute = require('./routes/games')
 app.use('/api/games', gamesRoute)
 const statsRoute = require('./routes/stats')
 app.use('/api/stats', statsRoute)
-const uploadsRoute = require('./routes/uploads')
-app.use('/api/uploads', uploadsRoute)
 
 // LOCALHOST
 app.listen(serverPort, () => {

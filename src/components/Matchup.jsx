@@ -1,61 +1,41 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 import styled from 'styled-components';
 import Hamster from './Hamster'
+
 
 const Matchup = () => {
     
     const [hamster1, setHamster1] = useState()
     const [hamster2, setHamster2] = useState()
-
-    let {id1,id2} = useParams()
+    const [id1, setId1] = useState()
+    const [id2, setId2] = useState()
     
     useEffect(() => {
-
         async function fetchData() {
-            const data = await fetch('/api/games/latest')
-            const json = await data.json()            
-
-            console.log(json);
             
-            const data2 = await fetch(`/api/hamsters/${id1}/${id2}`)
-            const json2 = await data2.json() 
-            console.log(json2);
+            const data = await fetch(`/api/hamsters/${id1}/${id2}`)
+            const json = await data.json() 
+            console.log(json);          
             
-            setHamster1({ id: json2.twoHamsters[0].id, name: json.twoHamsters[0].name, age: json.twoHamsters[0].age, matches: json.twoHamsters[0].matches, wins: json.twoHamsters[0].wins, losses: json.twoHamsters[0].defeats, favFood: json.twoHamsters[0].favFood, loves: json.twoHamsters[0].loves, imgName: json.twoHamsters[0].imgName})
-            setHamster2({ id: json2.twoHamsters[1].id, name: json.twoHamsters[1].name, age: json.twoHamsters[1].age, matches: json.twoHamsters[1].matches, wins: json.twoHamsters[1].wins, losses: json.twoHamsters[1].defeats, favFood: json.twoHamsters[1].favFood, loves: json.twoHamsters[1].loves, imgName: json.twoHamsters[1].imgName})
+            setHamster1({ id: json.twoHamsters[0].id, name: json.twoHamsters[0].name, age: json.twoHamsters[0].age, matches: json.twoHamsters[0].matches, wins: json.twoHamsters[0].wins, losses: json.twoHamsters[0].defeats, favFood: json.twoHamsters[0].favFood, loves: json.twoHamsters[0].loves, imgName: json.twoHamsters[0].imgName})
+            setHamster2({ id: json.twoHamsters[1].id, name: json.twoHamsters[1].name, age: json.twoHamsters[1].age, matches: json.twoHamsters[1].matches, wins: json.twoHamsters[1].wins, losses: json.twoHamsters[1].defeats, favFood: json.twoHamsters[1].favFood, loves: json.twoHamsters[1].loves, imgName: json.twoHamsters[1].imgName})
 
         }
         fetchData()
 
-    }, [id1, id2])
-
-    useEffect(() => {
-
-        try{
-
-            async function fetchData() {
-                const data = await fetch(`http://localhost:3005/api/hamsters/8/9`)
-                const json = await data.json() 
-                console.log(json);
-                
-                setHamster1({ id: json.twoHamsters[0].id, name: json.twoHamsters[0].name, age: json.twoHamsters[0].age, matches: json.twoHamsters[0].matches, wins: json.twoHamsters[0].wins, losses: json.twoHamsters[0].defeats, favFood: json.twoHamsters[0].favFood, loves: json.twoHamsters[0].loves, imgName: json.twoHamsters[0].imgName})
-                setHamster2({ id: json.twoHamsters[1].id, name: json.twoHamsters[1].name, age: json.twoHamsters[1].age, matches: json.twoHamsters[1].matches, wins: json.twoHamsters[1].wins, losses: json.twoHamsters[1].defeats, favFood: json.twoHamsters[1].favFood, loves: json.twoHamsters[1].loves, imgName: json.twoHamsters[1].imgName})
-            }
-            fetchData()
-
-        } catch(err) {
-            console.error(err);
-        }
-
     }, [])
     
     return(
-        <StyledDiv>
-            <> <Hamster hamster={hamster1}/>
-            <StyledH1>WON</StyledH1>
-            <Hamster hamster={hamster2}/> </>
-        </StyledDiv>
+        <Router>
+            <Route path="/matchup/:id1/:id2">
+                <StyledDiv>
+                    <> <Hamster hamster={hamster1}/>
+                    <StyledH1>WON</StyledH1>
+                    <Hamster hamster={hamster2}/> </>
+                </StyledDiv>
+            </Route>
+        </Router>
     )
 }
 

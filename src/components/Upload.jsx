@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import dropzone from 'dropzone'
 
 const Upload = () => {
 
@@ -8,8 +7,8 @@ const Upload = () => {
     const [age, setAge] = useState()
     const [favFood, setFavFood] = useState()
     const [loves, setLoves] = useState()
+    const [res, setRes] = useState()
 
-    
     async function postHamster() {
 
         const newHamster = JSON.stringify({
@@ -20,7 +19,7 @@ const Upload = () => {
         })
         
         const myHeaders = new Headers();
-        myHeaders.append("authorization", process.env.REACT_APP_APIKEY);
+        myHeaders.append("Authorization", process.env.REACT_APP_APIKEY);
         myHeaders.append("Content-Type", "application/json");
                 
         const requestOptions = {
@@ -31,21 +30,52 @@ const Upload = () => {
         };
         
         fetch("/api/hamsters/new", requestOptions)
-          .then(response => response.text())
-          .then(result => console.log(result))
-          .catch(error => console.log('error', error));
+        .then(res => res.text())
+        .then(res => setRes(res))
+        .catch(error => console.log('error', error));
     
+        //   postHamsterImage()
     }
 
+    // async function postHamsterImage() {
+        
+    //     const myHeaders = new Headers();
+    //     myHeaders.append("Authorization", process.env.REACT_APP_APIKEY);
+    //     myHeaders.append("Content-Type", "multipart/form-data");
+                
+    //     const formdata = new FormData();
+    //     formdata.append("file", fileInput.files[0])
+    //     formdata.append("name", "image")
+
+    //     const requestOptions = {
+    //       method: 'POST',
+    //       headers: myHeaders,
+    //       body: formdata,
+    //       redirect: 'follow'
+    //     };
+        
+    //     fetch("/api/hamsters/newimg", requestOptions)
+    //       .then(response => response.text())
+    //       .then(result => console.log(result))
+    //       .catch(error => console.log('error', error));
+    
+    // }
+
     return(
-        <StyledForm action="/file-upload" method="post" encType="multipart/form-data" className="dropzone"> 
+        <>
+        <StyledForm> 
             <h5>UPLOAD YOUR HAMSTER:</h5>
             <StyledInput type="text" placeholder="Name" onChange={e => setName(e.target.value)}/>
             <StyledInput type="number" placeholder="Age" onChange={e => setAge(e.target.value)}/>
             <StyledInput type="text" placeholder="Favourite food" onChange={e => setFavFood(e.target.value)}/>
             <StyledInput type="text" placeholder="What does it love most?" onChange={e => setLoves(e.target.value)}/>
-            <button type="submit" onClick={postHamster}>UPLOAD</button>
+            <input type="button" onClick={postHamster} value="UPLOAD"/>
+            <StyledP>{res}</StyledP>
         </StyledForm>
+        {/* <StyledForm method="post" action="/api/hamster/new" encType="multipart/form-data">
+            <input type="file" accept="image/*" name="image"/>
+        </StyledForm> */}
+        </>
     )
 }
 
@@ -62,6 +92,9 @@ const StyledForm = styled.form`
 `
 const StyledInput = styled.input`
     width: 20em;
+`
+const StyledP = styled.p`
+    margin: 0.5em;
 `
 
 // const SectionLeft = styled.section`
